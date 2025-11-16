@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LLMPages</title>
+</head>
+<body>
+  <h1>LLMPages</h1>
+
+  <form id="github-user-llmpages">
+    <input type="text" id="username" placeholder="Enter GitHub username">
+    <button>Fetch Created At</button>
+  </form>
+
+  <div id="github-created-at"></div>
+
+  <script>
+    document.querySelector("#github-user-llmpages").addEventListener("submit", async (e)=>{
+      e.preventDefault();
+      const u = document.querySelector("#username").value;
+      const url = `https://api.github.com/users/${u}`;
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if(data.created_at){
+        document.querySelector("#github-created-at").innerHTML = data.created_at.slice(0,10);
+      } else {
+        document.querySelector("#github-created-at").innerHTML = "Invalid Username";
+      }
+    })
+  </script>
+</body>
+</html>
